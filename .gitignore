@@ -4,3 +4,7 @@
 *.xml
 task_1/.idea/.name
 *.txt
+*.bin
+*.lock
+*.properties
+*.kotlin_module
