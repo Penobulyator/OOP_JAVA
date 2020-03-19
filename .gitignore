@@ -8,3 +8,5 @@ task_1/.idea/.name
 *.lock
 *.properties
 *.kotlin_module
+*.log
+*.log

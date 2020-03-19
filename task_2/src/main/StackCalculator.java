@@ -6,21 +6,35 @@ import helperClasses.Context;
 import helperClasses.Parser;
 import helperClasses.commands.Command;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class StackCalculator {
     private Logger _logger = Logger.getLogger(StackCalculator.class.getName());
     private Parser _parser;
     private CommandFactory _factory = new CommandFactory();
     private Context _context = new Context();
-    StackCalculator(String fileIn){
+    public StackCalculator(String fileIn){
+
         _parser = new Parser(fileIn);
         _parser.pars();
+        FileHandler fh;
+        try {
+            // This block configure the logger with handler and formatter
+            fh = new FileHandler("StackCalculator.log");
+            _logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (SecurityException | IOException e) {
+            e.printStackTrace();
+        }
     }
-    void calculate(){
+    public void calculate(){
         String[] line;
         while ((line = _parser.getCommand()) != null)
         {
