@@ -10,3 +10,4 @@ task_1/.idea/.name
 *.properties
 *.kotlin_module
 *.log*
+*.html
