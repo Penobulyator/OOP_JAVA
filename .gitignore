@@ -4,9 +4,9 @@
 *.xml
 task_1/.idea/.name
 *.txt
+*.log*
 *.bin
 *.lock
 *.properties
 *.kotlin_module
-*.log
-*.log
+*.log*
