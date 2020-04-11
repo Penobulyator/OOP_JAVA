@@ -1,4 +1,4 @@
-package mvc;
+package model;
 
 public enum Cell {
     SNAKE,
