@@ -1,46 +1,76 @@
 package view;
 
-import controller.Controller;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.Cell;
+import observing.view.ViewAction;
+import observing.view.ViewActionListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 
-public class View{
-    public static final double SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    public static final double SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-    public static int _width;//number of cells horizontally
-    public static int _height;//number of cells vertically
+public class View implements ViewActionListener {
+    static private final String EMPTY_CELL_URL = "src/resources/emptyCell.jpg";
+
+    public static final double SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.8;
+    public static final double SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8;
+
     public static double CELL_WIDTH;
     public static double CELL_HEIGHT;
-    Stage _stage = new Stage();
-    Scene _scene;
-    GridPane _matrix;
-    public Stage get_stage() {
-        return _stage;
-    }
+
+    Stage stage = new Stage();
+    GridPane gridPane = new GridPane();
+    Scene scene = new Scene (gridPane);
+
+    private final int width;//number of cells horizontally
+    private final int height;//number of cells vertically
+
+    private ActionListener actionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    };
+
     public View(int width, int height) {
-        _width = width;
-        _height = height;
-        CELL_WIDTH = SCREEN_WIDTH / _width;
-        CELL_HEIGHT = SCREEN_HEIGHT / _height;
-        _matrix = new GridPane();
-        for (int i = 0; i < _width; i++)
-            for (int j = 0; j < _height; j++) {
-                Rectangle rec = new Rectangle(CELL_WIDTH, CELL_HEIGHT);
-                rec.setFill(Color.web("#D3C70F"));//yellow
-                rec.setStroke(Color.web("#000000"));//black
-                _matrix.add(rec, i, j);
+        gridPane.setGridLinesVisible(false);
+
+        this.width = width;
+        this.height = height;
+
+        CELL_WIDTH = SCREEN_WIDTH / width;
+        CELL_HEIGHT = SCREEN_HEIGHT / height;
+
+        Image image = new Image("resources/emptyCell.jpg");
+
+        gridPane.setBackground(Background.EMPTY);
+
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++) {
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(CELL_HEIGHT);
+                imageView.setFitWidth(CELL_WIDTH);
+                gridPane.add(imageView, i, j);
             }
-        _scene = new Scene(_matrix);
+        stage.setScene (scene);
         //_stage.setFullScreen(true);
-        _stage.setScene(_scene);
+    }
+
+    public Stage get_stage() {
+        return stage;
+    }
+
+    @Override
+    public void notify(ViewAction viewAction) {
+        ImageView imageView = new ImageView(viewAction.get_image());
+
+        imageView.setFitWidth(CELL_WIDTH);
+        imageView.setFitHeight(CELL_HEIGHT);
+
+        gridPane.add(imageView, viewAction.get_point().x, viewAction.get_point().y);
     }
 }
