@@ -49,7 +49,7 @@ public class ActionAdapter implements SnakeActionListener, FoodActionListener {
         viewActionListener.notify(headMovedAction);
 
         //put new head in list
-        Point newSnakeHeadCords = snakeCords.getLast();
+        Point newSnakeHeadCords = new Point(snakeCords.getLast());
         newSnakeHeadCords.move(newSnakeHeadCords.x + snakeMovementAction.getDx(), newSnakeHeadCords.y + snakeMovementAction.getDy());
         snakeCords.addLast(newSnakeHeadCords);
 

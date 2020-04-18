@@ -78,7 +78,7 @@ public class Model{
         //check for walls
         if (head.x + dx >= width || head.x + dx < 0)
             throw new Exception("game over");
-        if (head.y + dx >= height || head.y + dx < 0)
+        if (head.y + dy >= height || head.y + dy < 0)
             throw new Exception("game over");
 
         //check for other snake body part crashes
