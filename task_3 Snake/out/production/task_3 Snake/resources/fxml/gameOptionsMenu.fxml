@@ -15,7 +15,7 @@
             <Font size="49.0" />
          </font>
       </Text>
-      <ChoiceBox fx:id="gameDifficultyChoiceBox" prefHeight="83.0" prefWidth="580.0" style="-fx-background-color: #D7E400;" />
+      <ChoiceBox fx:id="gameDifficultyChoiceBox" prefHeight="83.0" prefWidth="580.0" style="-fx-background-color: #D7E400; -fx-font-size: 30.0;" />
       <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name" textAlignment="CENTER">
          <font>
             <Font size="49.0" />

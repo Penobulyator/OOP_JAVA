@@ -35,7 +35,6 @@ public class mainMenuController {
     }
 
     public void start(ActionEvent actionEvent) throws IOException {
-        
 
         Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/gameOptionsMenu.fxml"));
         Main.getStage().setScene(new Scene(root));

@@ -17,7 +17,7 @@ public class RecordTableController {
 
     @FXML
     void initialize() {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/resources/java.recordTable.txt"))) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/resources/recordTable.txt"))) {
             //read and change record table
             RecordTable recordTable = (RecordTable) objectInputStream.readObject();
             objectInputStream.close();

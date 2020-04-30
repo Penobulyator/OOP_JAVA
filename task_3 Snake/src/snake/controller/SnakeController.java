@@ -80,20 +80,21 @@ public class SnakeController {
     private void endGame() {
         moveTimeline.stop();
 
-        snakeView.endGame();
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/resources/java.recordTable.txt"))) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/resources/recordTable.txt"))) {
             //read and change record table
             RecordTable recordTable = (RecordTable) objectInputStream.readObject();
             recordTable.addRecord(playerName, playerScore);
             objectInputStream.close();
             //add record table to file
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/resources/java.recordTable.txt"));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("src/resources/recordTable.txt"));
             objectOutputStream.writeObject(recordTable);
             objectOutputStream.close();
 
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
+
+        snakeView.endGame();
     }
 
     private void setTimeLine() {

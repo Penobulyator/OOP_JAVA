@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class RecordTable implements Serializable {
-    private final int CAPACITY = 4;
+    private final int CAPACITY = 3;
 
     Map<String, Integer> buffer = new TreeMap<>();
 
