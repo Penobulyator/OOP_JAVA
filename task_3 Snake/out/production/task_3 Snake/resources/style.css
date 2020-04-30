@@ -1,0 +1,13 @@
+.vbox {
+    -fx-alignment: CENTER;
+    -fx-pref-height: 800.0; -fx-pref-width: 1200.0;
+    -fx-background-color: #00A118;
+    -fx-spacing: 70;
+    -fx-margin: 30%;
+}
+.button{
+    -fx-pref-height: 150.0;
+    -fx-pref-width: 400.0;
+    -fx-background-color: #D7E400;
+    -fx-font-size: 60.0;
+}

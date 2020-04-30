@@ -1,6 +1,4 @@
-package observing.snake;
-
-import com.sun.javafx.scene.traversal.Direction;
+package snake.observing.snake;
 
 public class SnakeMovementAction {
     private boolean increased;

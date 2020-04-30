@@ -1,4 +1,4 @@
-package observing.view;
+package snake.observing.view;
 
 import javafx.scene.image.Image;
 

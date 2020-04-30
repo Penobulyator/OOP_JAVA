@@ -1,16 +1,17 @@
-package model;
+package snake.model;
 
 import com.sun.javafx.scene.traversal.Direction;
-import observing.food.FoodAction;
-import observing.food.FoodActionListener;
-import observing.snake.SnakeAppearanceAction;
-import observing.snake.SnakeMovementAction;
-import observing.snake.SnakeActionListener;
+import snake.observing.food.FoodAction;
+import snake.observing.food.FoodActionListener;
+import snake.observing.score.ScoreActionListener;
+import snake.observing.snake.SnakeActionListener;
+import snake.observing.snake.SnakeAppearanceAction;
+import snake.observing.snake.SnakeMovementAction;
 
 import java.awt.*;
 import java.util.*;
 
-public class Model{
+public class SnakeModel {
 
     static private int width;
     static private int height;
@@ -21,33 +22,30 @@ public class Model{
 
     private LinkedList<Point> snakeCords = new LinkedList<>(); //first is tail, last is head
     private Point foodCords;
+
     private LinkedList<SnakeActionListener> snakeActionListeners = new LinkedList<>();//actually there will be only one listener
     private LinkedList<FoodActionListener> foodActionListeners = new LinkedList<>();//actually there will be only one listener
+    private LinkedList<ScoreActionListener> scoreActionListeners = new LinkedList<>();//actually there will be only one listener
 
     public void addSnakeActionListener(SnakeActionListener snakeActionListener){
         snakeActionListeners.add(snakeActionListener);
     }
 
-    public void addAppleActionListener(FoodActionListener foodActionListener){
+    public void addFoodActionListener(FoodActionListener foodActionListener){
         foodActionListeners.add(foodActionListener);
     }
 
-    public Model(int width, int height){
-        Model.width = width;
-        Model.height = height;
+    public void addScoreActionListener(ScoreActionListener scoreActionListener){
+        scoreActionListeners.add(scoreActionListener);
+    }
+
+    public SnakeModel(int width, int height){
+        SnakeModel.width = width;
+        SnakeModel.height = height;
     }
 
     private void placeNewFood(){
-        //notify all food listeners that food has been removed
-        for (FoodActionListener listener: foodActionListeners) {
-            listener.notify(new FoodAction(foodCords, false));
-        }
         chooseNewFoodCords();
-
-        //notify all food listeners that food has been placed
-        for (FoodActionListener listener: foodActionListeners) {
-            listener.notify(new FoodAction(foodCords, true));
-        }
     }
     private void chooseNewFoodCords(){
         foodCords.x = rand.nextInt (width);
@@ -61,15 +59,18 @@ public class Model{
     }
 
     public void start(){
-        //place snake
+        //place java.snake
         for (int i=0;i<START_SNAKE_SIZE;i++)
             snakeCords.add(new Point(i, height /2));
-        //notify listeners about snake appearance
+        //notify listeners about java.snake appearance
         for (SnakeActionListener listener: snakeActionListeners) {
-            listener.notify(new SnakeAppearanceAction (snakeCords));
+            listener.notify(new SnakeAppearanceAction(snakeCords));
         }
         foodCords = new Point(0, 0);
         placeNewFood();
+        for (FoodActionListener listener: foodActionListeners) {
+            listener.notify(new FoodAction(foodCords, true));
+        }
     }
     private void move(int dx, int dy) throws Exception{
         /*CHECK FOR WARNINGS*/
@@ -81,7 +82,7 @@ public class Model{
         if (head.y + dy >= height || head.y + dy < 0)
             throw new Exception("game over");
 
-        //check for other snake body part crashes
+        //check for other java.snake body part crashes
         for (Point point: snakeCords) {
             if (point.x == head.x + dx && point.y == head.y + dy)
                 throw new Exception("game over");
@@ -89,15 +90,22 @@ public class Model{
 
         /*IF NO WARNING APPEARED*/
         snakeCords.addLast(new Point(head.x + dx, head.y + dy));
-        if  (snakeCords.getLast().equals (foodCords)){ //if
-
-            //notify all apple listeners that food has been removed
+        if  (snakeCords.getLast().equals (foodCords)){
+            //notify all score that score has been increased
+            for (ScoreActionListener listener: scoreActionListeners) {
+                listener.increaseScore();
+            }
+            //notify all food listeners that food has been removed
             for (FoodActionListener listener: foodActionListeners) {
                 listener.notify(new FoodAction (foodCords, false));
             }
-
             //place new food
             placeNewFood();
+            //notify all food listeners that food has been placed
+            for (FoodActionListener listener: foodActionListeners) {
+                listener.notify(new FoodAction (foodCords, true));
+            }
+            //notify all java.snake movement listeners that java.snake has been moved
             for (SnakeActionListener listener: snakeActionListeners) {
                 listener.notify(new SnakeMovementAction(dx,dy, true));
             }
@@ -105,6 +113,7 @@ public class Model{
         }
         else{
             snakeCords.removeFirst();
+            //notify all java.snake movement listeners that java.snake has been moved
             for (SnakeActionListener listener: snakeActionListeners) {
                 listener.notify(new SnakeMovementAction(dx,dy, false));
             }

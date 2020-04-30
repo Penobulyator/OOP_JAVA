@@ -1,4 +1,4 @@
-package observing.food;
+package snake.observing.food;
 
 import java.awt.*;
 

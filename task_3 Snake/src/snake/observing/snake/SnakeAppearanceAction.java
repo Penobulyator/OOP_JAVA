@@ -1,4 +1,4 @@
-package observing.snake;
+package snake.observing.snake;
 
 import java.awt.*;
 import java.util.LinkedList;

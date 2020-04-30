@@ -1,21 +1,28 @@
-package main;
+package Main;
 
-import controller.Controller;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    public static final double width = 1200;
+    public static final double height = 800;
+    public static Stage getStage() {
+        return stage;
+    }
 
+    private static Stage stage;
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        // Controller object, default constructor sets up basic game parameters and the View and Model together
-        Controller setUpGame = new Controller();
-        // Getting the game stage from controller, which got it from MainView class
-        primaryStage = setUpGame.getStage();
-        // Stage can't change size
-        primaryStage.setResizable(false);
-        // Show the stage and actual scenes
-        primaryStage.show();
+    public void start(Stage stage) throws Exception {
+        Main.stage = stage;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/mainMenu.fxml"));
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public static void main(String args[]){
