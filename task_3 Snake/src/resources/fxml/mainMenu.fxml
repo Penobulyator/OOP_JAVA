@@ -6,7 +6,8 @@
 <?import javafx.scene.text.Font?>
 <?scenebuilder-stylesheet resources/style.css?>
 
-<VBox alignment="CENTER" styleClass="vbox" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.mainMenuController">
+<VBox alignment="CENTER" styleClass="vbox" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.mainMenuController">
    <children>
       <Button fx:id="startButton" mnemonicParsing="false" onAction="#start" text="Start" />
       <Button fx:id="exitButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#exit" stylesheets="@../style.css" text="Exit">
