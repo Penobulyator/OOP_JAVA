@@ -74,6 +74,8 @@ public class MenuController {
     @FXML
     private Label storageCarsCount;
 
+    private Properties properties;
+
     private Storage<Body> bodyStorage;
     private Storage<Engine> engineStorage;
     private Storage<Accessory> accessoryStorage;
@@ -99,7 +101,7 @@ public class MenuController {
 
     private void buildModel(){
         //get properties
-        Properties properties = new Properties();
+        properties = new Properties();
         try (InputStream input = new FileInputStream("src/resources/config.properties")) {
 
             properties.load(input);
@@ -130,14 +132,12 @@ public class MenuController {
         threadPool.start();
         carAssemblyController.start();
 
-        createSuppliers(properties);
-        createDealers(properties);
-
-        //setup logging
+        createSuppliers();
+        createDealers();
 
     }
 
-    private void createSuppliers(Properties properties){
+    private void createSuppliers(){
         int size = Integer.parseInt(properties.getProperty("EngineSuppliers"));
         engineSuppliers = new ArrayList<>(size);
         for (int i=0;i< size; i++)
@@ -170,7 +170,7 @@ public class MenuController {
 
     }
 
-    private void createDealers(Properties properties){
+    private void createDealers(){
         if (Boolean.parseBoolean(properties.getProperty("Log"))){
             Logger logger = Logger.getLogger("Log");
             try {
@@ -203,10 +203,10 @@ public class MenuController {
     }
 
     private void refreshGui() {
-        storageEnginesCount.setText(Integer.toString(engineStorage.currentSize()));
-        storageBodiesCount.setText(Integer.toString(bodyStorage.currentSize()));
-        storageAccessoriesCount.setText(Integer.toString(accessoryStorage.currentSize()));
-        storageCarsCount.setText(Integer.toString(carStorage.currentSize()));
+        storageEnginesCount.setText(engineStorage.currentSize() + "/ " + properties.getProperty("EngineStorageSize"));
+        storageBodiesCount.setText(bodyStorage.currentSize() + "/ " + properties.getProperty("BodyStorageSize"));
+        storageAccessoriesCount.setText(accessoryStorage.currentSize() + "/ " + properties.getProperty("AccessoryStorageSize"));
+        storageCarsCount.setText(carStorage.currentSize() + "/"  + properties.getProperty("CarStorageSize"));
 
         totalEnginesCountLabel.setText(Integer.toString(engineStorage.getTotalCount()));
         totalBodiesCountLabel.setText(Integer.toString(bodyStorage.getTotalCount()));
@@ -225,4 +225,3 @@ public class MenuController {
         Dealer.setDelay(speedToDelay(dealersSpeedSlider.getValue()));
     }
 }
-
