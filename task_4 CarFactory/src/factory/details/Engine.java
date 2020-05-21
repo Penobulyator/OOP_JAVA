@@ -1,4 +1,4 @@
-package java.details;
+package factory.details;
 
 public class Engine extends Detail {
 

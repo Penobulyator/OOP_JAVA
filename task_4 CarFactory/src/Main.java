@@ -11,7 +11,11 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/resources/menu.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
+
         primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(event -> {
+            System.exit(0);
+        });
         primaryStage.show();
     }
 

@@ -1,0 +1,8 @@
+.slider{
+    -fx-pref-height: 60; -fx-pref-width: 200;
+    -fx-value: 50;
+}
+
+.labelFlowPane{
+    -fx-pref-height: 480; -fx-pref-width: 380;
+}

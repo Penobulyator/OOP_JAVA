@@ -1,4 +1,4 @@
-package java.details;
+package factory.details;
 
 public class Detail {
     private int id;
