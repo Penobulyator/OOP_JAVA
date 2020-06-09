@@ -1,0 +1,7 @@
+.vbox {
+    -fx-pref-height: 600.0; -fx-pref-width: 800.0;
+    -fx-background-color: #E0E0E0;
+}
+.button{
+    -fx-background-color: #696969;
+}
